@@ -1,12 +1,24 @@
 namespace fileManager
 {
-    void set_filename(std::string filename)
+    class file
     {
-        fileManager::__internal::settings::filename = filename;
+        private:
+            std::string name;
+        public:
+            file(std::string name)
+            {
+                this->name=name;
+            }
+            std::string getHandleName()
+            {
+                return this->name;
+            }
+    };
+    void setfile(fileManager::file file)
+    {
+        fileManager::__internal::settings::filename = file.getHandleName();
     }
-   
-    //config funcs
-    namespace config
+    namespace stdfile
     {
         //append
         void append(std::string text)

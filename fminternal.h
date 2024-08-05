@@ -51,6 +51,7 @@ namespace fileManager
             }
             void vers_info()
             {
+                std::cout << "File Manager" << fileManager::stdex::nullstr;
                 std::cout << fileManager::__internal::version::major<<"."<<fileManager::__internal::version::minor<<"."<<fileManager::__internal::version::patch;
                 std::cout << fileManager::stdex::nullstr;
                 std::cout << "(c) 2024 Brace Software Co., by DEntisT" << std::endl << std::endl;

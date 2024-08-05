@@ -36,16 +36,19 @@ namespace fileManager
 
 int fileManager::__internal::function::testing()
 {
-    fileManager::set_filename("randomfile.txt");
+    fileManager::file myFile("randomfile.txt");
 
-    fileManager::config::del();
+    fileManager::setfile(myFile);
 
-    fileManager::config::append("test");
-    fileManager::config::append("3");
-    fileManager::config::append("HIII");
+    fileManager::stdfile::del();
+
+    fileManager::stdfile::append("test");
+    fileManager::stdfile::append("3");
+    fileManager::stdfile::append("HIII");
+    fileManager::stdfile::append("xd");
     
     std::vector<std::string>myvec;
-    fileManager::config::read(myvec);
+    fileManager::stdfile::read(myvec);
 
     for(std::vector<std::string>::iterator iter = myvec.begin(); iter < myvec.end(); iter++)
     {
