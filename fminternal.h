@@ -1,4 +1,4 @@
-namespace fileManager
+namespace flmgr
 {
     namespace __internal
     {
@@ -18,24 +18,24 @@ namespace fileManager
             int testing(); //used later
             void err(std::string text)
             {
-                std::cout << "[FileManager] PROGRAM THREAD @ System error: " << text << std::endl;
+                std::cout << "[flmgr] PROGRAM THREAD @ System error: " << text << std::endl;
             }
             void wrn(std::string text)
             {
-                std::cout << "[FileManager] PROGRAM THREAD @ System warning: " << text << std::endl;
+                std::cout << "[flmgr] PROGRAM THREAD @ System warning: " << text << std::endl;
             }
             void info(std::string text)
             {
-                if(fileManager::__internal::settings::debug == 1)
+                if(flmgr::__internal::settings::debug == 1)
                 {
-                    std::cout << "[FileManager] PROGRAM THREAD @ System info: " << text << std::endl;
+                    std::cout << "[flmgr] PROGRAM THREAD @ System info: " << text << std::endl;
                 }
             }
             void init()
             {
-                fileManager::__internal::settings::filename = "null";
+                flmgr::__internal::settings::filename = "null";
 
-                fileManager::__internal::function::info("Init finished.");
+                flmgr::__internal::function::info("Init finished.");
             }
             bool check_args(std::string forarg, int argc, char *argv[])
             {
@@ -43,7 +43,7 @@ namespace fileManager
                 {
                     if(forarg == (std::string)argv[i])
                     {
-                        fileManager::__internal::function::info("Argument found.");
+                        flmgr::__internal::function::info("Argument found.");
                         return true;
                     }
                 }
@@ -51,9 +51,9 @@ namespace fileManager
             }
             void vers_info()
             {
-                std::cout << "File Manager" << fileManager::stdex::nullstr;
-                std::cout << fileManager::__internal::version::major<<"."<<fileManager::__internal::version::minor<<"."<<fileManager::__internal::version::patch;
-                std::cout << fileManager::stdex::nullstr;
+                std::cout << "File Manager" << flmgr::stdex::nullstr;
+                std::cout << flmgr::__internal::version::major<<"."<<flmgr::__internal::version::minor<<"."<<flmgr::__internal::version::patch;
+                std::cout << flmgr::stdex::nullstr;
                 std::cout << "(c) 2024 Brace Software Co., by DEntisT" << std::endl << std::endl;
             }
         }

@@ -1,4 +1,4 @@
-namespace fileManager
+namespace flmgr
 {
     namespace stdex
     {

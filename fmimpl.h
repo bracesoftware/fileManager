@@ -1,4 +1,4 @@
-namespace fileManager
+namespace flmgr
 {
     class file
     {
@@ -14,16 +14,16 @@ namespace fileManager
                 return this->name;
             }
     };
-    void setfile(fileManager::file file)
+    void setfile(flmgr::file file)
     {
-        fileManager::__internal::settings::filename = file.getHandleName();
+        flmgr::__internal::settings::filename = file.getHandleName();
     }
     namespace stdfile
     {
         //append
         void append(std::string text)
         {
-            std::ofstream internal_fileobject(fileManager::__internal::settings::filename, std::ios::app);
+            std::ofstream internal_fileobject(flmgr::__internal::settings::filename, std::ios::app);
 
             if(internal_fileobject.is_open())
             {
@@ -32,13 +32,13 @@ namespace fileManager
             }
             else
             {
-                fileManager::__internal::function::err("Unable to open the file.");
+                flmgr::__internal::function::err("Unable to open the file.");
             }
         }
         //read
         void read(std::vector<std::string> &dest)
         {
-            std::ifstream internal_fileobject(fileManager::__internal::settings::filename);
+            std::ifstream internal_fileobject(flmgr::__internal::settings::filename);
             if(internal_fileobject.is_open())
             {
                 std::string line;
@@ -51,19 +51,19 @@ namespace fileManager
             }
             else
             {
-                fileManager::__internal::function::err("Unable to open the file.");
+                flmgr::__internal::function::err("Unable to open the file.");
             }
         }
         void del()
         {
-            std::ofstream internal_fileobject(fileManager::__internal::settings::filename);
+            std::ofstream internal_fileobject(flmgr::__internal::settings::filename);
             if(internal_fileobject.is_open())
             {
                 internal_fileobject.close();
             }
             else
             {
-                fileManager::__internal::function::err("Unable to open the file.");
+                flmgr::__internal::function::err("Unable to open the file.");
             }
         }
 
@@ -72,8 +72,8 @@ namespace fileManager
             //set
             void set(std::string text)
             {
-                fileManager::system::wrn("Don't use this - use \"fileManager::config::append()\" instead.");
-                std::ofstream internal_fileobject(fileManager::__internal::settings::filename);  // Otvaranje fajla za pisanje
+                flmgr::system::wrn("Don't use this - use \"flmgr::config::append()\" instead.");
+                std::ofstream internal_fileobject(flmgr::__internal::settings::filename);  // Otvaranje fajla za pisanje
                 if(internal_fileobject.is_open())
                 {
                     internal_fileobject << text;
@@ -81,7 +81,7 @@ namespace fileManager
                 }
                 else
                 {
-                    fileManager::system::err("Unable to open the file.");
+                    flmgr::system::err("Unable to open the file.");
                 }
                 //return 0;
             }
