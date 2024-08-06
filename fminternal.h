@@ -56,6 +56,19 @@ namespace flmgr
                 std::cout << flmgr::stdex::nullstr;
                 std::cout << "(c) 2024 Brace Software Co., by DEntisT" << std::endl << std::endl;
             }
+            std::vector<std::string> split(const std::string &str, char delimiter)
+            {
+                std::vector<std::string> tokens;
+                std::string token;
+                std::stringstream ss(str);
+
+                while (std::getline(ss, token, delimiter))
+                {
+                    tokens.push_back(token);
+                }
+
+                return tokens;
+            }
         }
     }
 }

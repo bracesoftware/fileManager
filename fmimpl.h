@@ -1,90 +1,148 @@
+#define __flmgr_filetype_txt 0
+#define __flmgr_filetype_ini 1
+
 namespace flmgr
 {
-    class file
+    namespace filetype
+    {
+        const int txt = __flmgr_filetype_txt;
+        const int ini = __flmgr_filetype_ini;
+    }
+    template<const int t_filetype> class file
     {
         private:
-            std::string name;
+            std::string filename;
+            int filetype = (int)t_filetype;
         public:
-            file(std::string name)
+            file(std::string filename)
             {
-                this->name=name;
+                this->filename=filename;
             }
-            std::string getHandleName()
+            //funcs - getters and setters
+            void set_name(std::string filename)
             {
-                return this->name;
+                this->filename=filename;
             }
-    };
-    void setfile(flmgr::file file)
-    {
-        flmgr::__internal::settings::filename = file.getHandleName();
-    }
-    namespace stdfile
-    {
-        //append
-        void append(std::string text)
-        {
-            std::ofstream internal_fileobject(flmgr::__internal::settings::filename, std::ios::app);
-
-            if(internal_fileobject.is_open())
+            std::string get_name()
             {
-                internal_fileobject << text << std::endl;
-                internal_fileobject.close();  // Zatvaranje fajla
+                return this->filename;
             }
-            else
+            //management
+            void overwrite_text(std::string text)
             {
-                flmgr::__internal::function::err("Unable to open the file.");
-            }
-        }
-        //read
-        void read(std::vector<std::string> &dest)
-        {
-            std::ifstream internal_fileobject(flmgr::__internal::settings::filename);
-            if(internal_fileobject.is_open())
-            {
-                std::string line;
-
-                while(std::getline(internal_fileobject, line))
+                if(this->filetype != __flmgr_filetype_txt)
                 {
-                    dest.push_back(line);
+                    flmgr::__internal::function::wrn("Invalid file type for this operation.");
                 }
-                internal_fileobject.close();
-            }
-            else
-            {
-                flmgr::__internal::function::err("Unable to open the file.");
-            }
-        }
-        void del()
-        {
-            std::ofstream internal_fileobject(flmgr::__internal::settings::filename);
-            if(internal_fileobject.is_open())
-            {
-                internal_fileobject.close();
-            }
-            else
-            {
-                flmgr::__internal::function::err("Unable to open the file.");
-            }
-        }
-
-        /*namespace __deprecated
-        {
-            //set
-            void set(std::string text)
-            {
-                flmgr::system::wrn("Don't use this - use \"flmgr::config::append()\" instead.");
-                std::ofstream internal_fileobject(flmgr::__internal::settings::filename);  // Otvaranje fajla za pisanje
+                std::ofstream internal_fileobject(this->filename);
                 if(internal_fileobject.is_open())
                 {
                     internal_fileobject << text;
-                    internal_fileobject.close();  // Zatvaranje fajla
+                    internal_fileobject.close();
                 }
                 else
                 {
-                    flmgr::system::err("Unable to open the file.");
+                    flmgr::__internal::function::err("Unable to open the file.");
                 }
-                //return 0;
             }
-        }*/
-    }
+            void append_text(std::string text)
+            {
+                if(this->filetype != __flmgr_filetype_txt)
+                {
+                    flmgr::__internal::function::wrn("Invalid file type for this operation.");
+                }
+                std::ofstream internal_fileobject(this->filename, std::ios::app);
+
+                if(internal_fileobject.is_open())
+                {
+                    internal_fileobject << text << std::endl;
+                    internal_fileobject.close();
+                }
+                else
+                {
+                    flmgr::__internal::function::err("Unable to open the file.");
+                }
+            }
+            void read_text(std::vector<std::string> &dest)
+            {
+                if(this->filetype != __flmgr_filetype_txt)
+                {
+                    flmgr::__internal::function::wrn("Invalid file type for this operation.");
+                }
+                std::ifstream internal_fileobject(this->filename);
+                if(internal_fileobject.is_open())
+                {
+                    std::string line;
+
+                    while(std::getline(internal_fileobject, line))
+                    {
+                        dest.push_back(line);
+                    }
+                    internal_fileobject.close();
+                }
+                else
+                {
+                    flmgr::__internal::function::err("Unable to open the file.");
+                }
+            }
+            void remove_content()
+            {
+                std::ofstream internal_fileobject(this->filename);
+                if(internal_fileobject.is_open())
+                {
+                    internal_fileobject.close();
+                }
+                else
+                {
+                    flmgr::__internal::function::err("Unable to open the file.");
+                }
+            }
+            void set_key(std::string key, std::string value)
+            {
+                if(this->filetype != __flmgr_filetype_ini)
+                {
+                    flmgr::__internal::function::wrn("Invalid file type for this operation.");
+                }
+                std::ofstream internal_fileobject(this->filename, std::ios::app);
+
+                if(internal_fileobject.is_open())
+                {
+                    internal_fileobject << key << "=" << value << std::endl;
+                    internal_fileobject.close();
+                }
+                else
+                {
+                    flmgr::__internal::function::err("Unable to open the file.");
+                }
+            }
+            std::string get_key(std::string key)
+            {
+                if(this->filetype != __flmgr_filetype_ini)
+                {
+                    flmgr::__internal::function::wrn("Invalid file type for this operation.");
+                }
+                std::ifstream internal_fileobject(this->filename);
+                if(internal_fileobject.is_open())
+                {
+                    std::string line;
+                    std::vector<std::string>linesplit;
+
+                    while(std::getline(internal_fileobject, line))
+                    {
+                        linesplit.clear();
+                        linesplit = flmgr::__internal::function::split(line,'=');
+                        if(linesplit[0] == key)
+                        {
+                            return linesplit[1];
+                        }
+                    }
+                    internal_fileobject.close();
+                }
+                else
+                {
+                    flmgr::__internal::function::err("Unable to open the file.");
+                }
+                return flmgr::stdex::nullstr;
+            }
+    };
 }

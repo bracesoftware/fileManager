@@ -3,6 +3,7 @@
 #include <string>
 #include <fstream>
 #include <cstdio>
+#include <sstream>
 
 #include "fmstdex.h"
 #include "fminternal.h"
@@ -36,24 +37,38 @@ namespace flmgr
 
 int flmgr::__internal::function::testing()
 {
-    flmgr::file myFile("randomfile.txt");
+    flmgr::file<flmgr::filetype::txt> myFile("randomfile.txt");
 
-    flmgr::setfile(myFile);
+    myFile.remove_content();
 
-    flmgr::stdfile::del();
+    myFile.append_text("LOL");
+    myFile.append_text("xd");
+    myFile.append_text("---");
+    myFile.append_text("LOL");
+    myFile.append_text("4");
 
-    flmgr::stdfile::append("test");
-    flmgr::stdfile::append("3");
-    flmgr::stdfile::append("HIII");
-    flmgr::stdfile::append("xd");
+    myFile.overwrite_text("mytect\n");
+    myFile.append_text("3");
+    myFile.append_text("6");
     
     std::vector<std::string>myvec;
-    flmgr::stdfile::read(myvec);
+    myFile.read_text(myvec);
 
     for(std::vector<std::string>::iterator iter = myvec.begin(); iter < myvec.end(); iter++)
     {
         std::cout << *iter << std::endl;
     }
+
+    flmgr::file<flmgr::filetype::ini> myConfig("mycfg.ini");
+
+    myConfig.remove_content();
+    myConfig.set_key("myKey","1");
+    myConfig.set_key("3","1");
+    myConfig.set_key("myKey","1");
+    myConfig.set_key("4Q53","1");
+    myConfig.set_key("53","hello world");
+
+    std::cout << myConfig.get_key("53") << std::endl;
 
     return 0;
 }
