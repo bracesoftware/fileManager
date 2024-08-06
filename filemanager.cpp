@@ -4,6 +4,7 @@
 #include <fstream>
 #include <cstdio>
 #include <sstream>
+#include <unordered_map>
 
 #include "fmstdex.h"
 #include "fminternal.h"
@@ -69,6 +70,14 @@ int flmgr::__internal::function::testing()
     myConfig.set_key("53","hello world");
 
     std::cout << myConfig.get_key("53") << std::endl;
+
+    std::unordered_map<std::string, std::string>myMap;
+    myConfig.get_keys(myMap);
+
+    for(auto &i : myMap)
+    {
+        std::cout << i.first << "=" << i.second << std::endl;
+    }
 
     return 0;
 }

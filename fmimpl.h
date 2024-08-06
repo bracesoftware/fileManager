@@ -144,5 +144,31 @@ namespace flmgr
                 }
                 return flmgr::stdex::nullstr;
             }
+            std::string get_keys(std::unordered_map<std::string, std::string> &dest)
+            {
+                if(this->filetype != __flmgr_filetype_ini)
+                {
+                    flmgr::__internal::function::wrn("Invalid file type for this operation.");
+                }
+                std::ifstream internal_fileobject(this->filename);
+                if(internal_fileobject.is_open())
+                {
+                    std::string line;
+                    std::vector<std::string>linesplit;
+
+                    while(std::getline(internal_fileobject, line))
+                    {
+                        linesplit.clear();
+                        linesplit = flmgr::__internal::function::split(line,'=');
+                        dest[linesplit[0]] = linesplit[1];
+                    }
+                    internal_fileobject.close();
+                }
+                else
+                {
+                    flmgr::__internal::function::err("Unable to open the file.");
+                }
+                return flmgr::stdex::nullstr;
+            }
     };
 }
