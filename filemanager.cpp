@@ -31,7 +31,6 @@ the Initial Developer. All Rights Reserved.
 #include <filesystem>
 #include <unordered_map>
 
-#include "fmstdex.h"
 #include "fminternal.h"
 #include "fmimpl.h"
 

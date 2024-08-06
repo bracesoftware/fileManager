@@ -253,7 +253,7 @@ namespace flmgr
                 {
                     flmgr::__internal::function::err("Unable to open the file.");
                 }
-                return flmgr::stdex::nullstr;
+                return flmgr::__internal::constants::nullstr;
             }
             std::string get_keys(std::unordered_map<std::string, std::string> &dest)
             {
@@ -279,7 +279,7 @@ namespace flmgr
                 {
                     flmgr::__internal::function::err("Unable to open the file.");
                 }
-                return flmgr::stdex::nullstr;
+                return flmgr::__internal::constants::nullstr;
             }
             void remove()
             {

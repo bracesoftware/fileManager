@@ -21,6 +21,14 @@ namespace flmgr
 {
     namespace __internal
     {
+        namespace constants
+        {
+            int nullint = 0;
+            bool nullbool = false;
+            std::string nullstr = "";
+            char nullchar = '0';
+            float nullfloat = 0.0;
+        }
         namespace settings
         {
             int debug = 0;
@@ -70,9 +78,9 @@ namespace flmgr
             }
             void vers_info()
             {
-                std::cout << "File Manager" << flmgr::stdex::nullstr;
+                std::cout << "File Manager" << flmgr::__internal::constants::nullstr;
                 std::cout << flmgr::__internal::version::major<<"."<<flmgr::__internal::version::minor<<"."<<flmgr::__internal::version::patch;
-                std::cout << flmgr::stdex::nullstr;
+                std::cout << flmgr::__internal::constants::nullstr;
                 std::cout << "(c) 2024 Brace Software Co., by DEntisT" << std::endl << std::endl;
             }
             std::vector<std::string> split(const std::string &str, char delimiter)
