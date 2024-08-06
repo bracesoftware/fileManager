@@ -51,6 +51,11 @@ std::string value = myFile.get_key("Key");
 - File type required: `flmgr::filetype::ini`
 - Get a value stored in an INI file.
 ```cpp
-std::
+std::unordered_map<std::string, std::string> mymap;
 myFile.get_keys(mymap);
+
+for(auto &i : mymap)
+{
+    std::cout << i.first << "=" << i.second << std::endl;
+}
 ```
