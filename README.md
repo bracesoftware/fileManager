@@ -149,3 +149,39 @@ flmgr::file<flmgr::filetype::txt> FileInPath(myPath, "file.txt");
 
 FileInPath.append_text("tesadasdast");
 ```
+
+# Extra features
+
+## Bit arrays
+
+- You can create bit arrays.
+
+```cpp
+flmgr::extra::bitarray<8> myBitArray;
+
+std::cout << "bitarray size: " << myBitArray.get_size() << std::endl;
+
+myBitArray.set_at(3,1);
+myBitArray.set_at(4,1);
+myBitArray.set_at(7,1);
+myBitArray.set_at(1,1);
+
+for(int i = 0; i < myBitArray.get_size(); i++)
+{
+    std::cout << "bitarray<" << i << "> = " << myBitArray.get_at(i) << std::endl;
+}
+```
+
+Output:
+
+```
+bitarray size: 8
+bitarray<0> = 0
+bitarray<1> = 1
+bitarray<2> = 0
+bitarray<3> = 1
+bitarray<4> = 1
+bitarray<5> = 0
+bitarray<6> = 0
+bitarray<7> = 1
+```

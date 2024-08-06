@@ -33,6 +33,7 @@ the Initial Developer. All Rights Reserved.
 
 #include "fminternal.h"
 #include "fmimpl.h"
+#include "fmextra.h"
 
 namespace flmgr
 {
