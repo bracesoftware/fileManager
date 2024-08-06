@@ -1,24 +1,70 @@
 # File Manager
 📁 • **File Manager** is a C++ library designed to provide a friendlier approach to managing persistent data.
 
+### `<>.set_name(std::string newname)`
+- File type required: `all directories and files`
+- Rename an object.
+```cpp
+myFile.set_name("something.txt");
+```
+
+### `<>.get_name()`
+- File type required: `all directories and files`
+- Get object name.
+```cpp
+std::string filename = myFile.get_name();
+```
+
+### `<>.remove()`
+- File type required: `all directories and files`
+- Get object name.
+```cpp
+myFile.remove();
+```
+
+----------------------------------------------------------------
+
+## Declaring directories as objects
+```cpp
+flmgr::dir myDir("myDir");
+```
+
+## Functions
+### `<>.create()`
+- File type required: `flmgr::filetype::txt` 
+- Remove all contents from a file, and then write text to it.
+```cpp
+myDir.create();
+```
+
+----------------------------------------------------------------
+
 ## Declaring files as objects
 ```cpp
 flmgr::file<flmgr::filetype::txt> myFile("randomfile.txt");
 ```
+- In order to create an object holding the name of a file in a directory, use the overloaded constructor:
+
+```cpp
+flmgr::file<flmgr::filetype::txt> myFile(myDir.get_name(), "randomfile.txt");
+```
 
 ## Functions
+
 ### `<>.overwrite_text(std::string text)`
 - File type required: `flmgr::filetype::txt` 
 - Remove all contents from a file, and then write text to it.
 ```cpp
 myFile.overwrite_text("test");
 ```
+
 ### `<>.append_text(std::string text)`
 - File type required: `flmgr::filetype::txt`
 - Append text to a file.
 ```cpp
 myFile.append_text("test");
 ```
+
 ### `<>.read_text(std::vector<std::string> &dest)`
 - File type required: `flmgr::filetype::txt`
 - Read a file line by line and store each line in a vector.
@@ -26,6 +72,7 @@ myFile.append_text("test");
 std::vector<std::string>fileContents;
 myFile.read_text(fileContents);
 ```
+
 ### `<>.read_line(int line, std::string &dest)`
 - File type required: `flmgr::filetype::txt`
 - Read a specific line.
@@ -34,6 +81,7 @@ std::string line;
 myFile.read_line(4,line);
 std::cout << "line content is : '" << line << "'" << std::endl;
 ```
+
 ### `<>.remove_content()`
 - File type required: `all files`
 - Remove all file contents.

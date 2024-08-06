@@ -22,19 +22,74 @@ the Initial Developer. All Rights Reserved.
 
 namespace flmgr
 {
+    class dir
+    {
+        private:
+            std::string dirname;
+        public:
+            dir(std::string dirname)
+            {
+                this->dirname=dirname;
+            }
+            //funcs - getters and setters
+            void set_name(std::string dirname)
+            {
+                this->dirname=dirname;
+            }
+            std::string get_name()
+            {
+                return (this->dirname) + "/";
+            }
+            void create()
+            {
+                std::filesystem::path dirpath = this->dirname;
+                try
+                {
+                    std::filesystem::create_directory(dirpath);
+                }
+                catch(const std::filesystem::filesystem_error *error)
+                {
+                    flmgr::__internal::function::err("File system error - " + (std::string)error->what());
+                }
+            }
+            void remove()
+            {
+                std::filesystem::path dirpath = this->dirname;
+                try
+                {
+                    std::filesystem::remove(dirpath);
+                }
+                catch(const std::filesystem::filesystem_error *error)
+                {
+                    flmgr::__internal::function::err("File system error - " + (std::string)error->what());
+                }
+                
+            }
+    };
     namespace filetype
     {
         const int txt = __flmgr_filetype_txt;
         const int ini = __flmgr_filetype_ini;
+    }
+    namespace filepath
+    {
+        const std::string null = "";
     }
     template<const int t_filetype> class file
     {
         private:
             std::string filename;
             int filetype = (int)t_filetype;
+            std::string filepath = flmgr::filepath::null;
         public:
             file(std::string filename)
             {
+                this->filepath=flmgr::filepath::null;
+                this->filename=filename;
+            }
+            file(std::string filepath, std::string filename)
+            {
+                this->filepath=filepath;
                 this->filename=filename;
             }
             //funcs - getters and setters
@@ -44,7 +99,7 @@ namespace flmgr
             }
             std::string get_name()
             {
-                return this->filename;
+                return (std::string)(this->filepath + this->filename);
             }
             //management
             void overwrite_text(std::string text)
@@ -53,7 +108,7 @@ namespace flmgr
                 {
                     flmgr::__internal::function::wrn("Invalid file type for this operation.");
                 }
-                std::ofstream internal_fileobject(this->filename);
+                std::ofstream internal_fileobject((std::string)(this->filepath + this->filename));
                 if(internal_fileobject.is_open())
                 {
                     internal_fileobject << text;
@@ -70,7 +125,7 @@ namespace flmgr
                 {
                     flmgr::__internal::function::wrn("Invalid file type for this operation.");
                 }
-                std::ofstream internal_fileobject(this->filename, std::ios::app);
+                std::ofstream internal_fileobject((std::string)(this->filepath + this->filename), std::ios::app);
 
                 if(internal_fileobject.is_open())
                 {
@@ -88,7 +143,7 @@ namespace flmgr
                 {
                     flmgr::__internal::function::wrn("Invalid file type for this operation.");
                 }
-                std::ifstream internal_fileobject(this->filename);
+                std::ifstream internal_fileobject((std::string)(this->filepath + this->filename));
                 if(internal_fileobject.is_open())
                 {
                     std::string line;
@@ -110,7 +165,7 @@ namespace flmgr
                 {
                     flmgr::__internal::function::wrn("Invalid file type for this operation.");
                 }
-                std::ifstream internal_fileobject(this->filename);
+                std::ifstream internal_fileobject((std::string)(this->filepath + this->filename));
                 if(internal_fileobject.is_open())
                 {
                     std::string readtext;
@@ -134,7 +189,7 @@ namespace flmgr
             }
             void remove_content()
             {
-                std::ofstream internal_fileobject(this->filename);
+                std::ofstream internal_fileobject((std::string)(this->filepath + this->filename));
                 if(internal_fileobject.is_open())
                 {
                     internal_fileobject.close();
@@ -150,7 +205,7 @@ namespace flmgr
                 {
                     flmgr::__internal::function::wrn("Invalid file type for this operation.");
                 }
-                std::ofstream internal_fileobject(this->filename, std::ios::app);
+                std::ofstream internal_fileobject((std::string)(this->filepath + this->filename), std::ios::app);
 
                 if(internal_fileobject.is_open())
                 {
@@ -168,7 +223,7 @@ namespace flmgr
                 {
                     flmgr::__internal::function::wrn("Invalid file type for this operation.");
                 }
-                std::ifstream internal_fileobject(this->filename);
+                std::ifstream internal_fileobject((std::string)(this->filepath + this->filename));
                 if(internal_fileobject.is_open())
                 {
                     std::string line;
@@ -197,7 +252,7 @@ namespace flmgr
                 {
                     flmgr::__internal::function::wrn("Invalid file type for this operation.");
                 }
-                std::ifstream internal_fileobject(this->filename);
+                std::ifstream internal_fileobject((std::string)(this->filepath + this->filename));
                 if(internal_fileobject.is_open())
                 {
                     std::string line;
@@ -216,6 +271,19 @@ namespace flmgr
                     flmgr::__internal::function::err("Unable to open the file.");
                 }
                 return flmgr::stdex::nullstr;
+            }
+            void remove()
+            {
+                std::filesystem::path filepath = (std::string)(this->filepath + this->filename);
+
+                try
+                {
+                    std::filesystem::remove(filepath);
+                }
+                catch(const std::filesystem::filesystem_error *error)
+                {
+                    flmgr::__internal::function::err("File system error - " + (std::string)error->what());
+                }
             }
     };
 }

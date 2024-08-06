@@ -28,6 +28,7 @@ the Initial Developer. All Rights Reserved.
 #include <fstream>
 #include <cstdio>
 #include <sstream>
+#include <filesystem>
 #include <unordered_map>
 
 #include "fmstdex.h"
@@ -112,6 +113,18 @@ int flmgr::__internal::function::testing()
 
     myFile.read_line(5,line);
     std::cout << "line content is : '" << line << "'" << std::endl;
+
+    flmgr::dir myDir("myDir");
+
+    myDir.create();
+
+    flmgr::file<flmgr::filetype::txt> FileInDir(myDir.get_name(), "file.txt");
+
+    FileInDir.append_text("tesadasdast");
+
+    FileInDir.remove();
+
+    myDir.remove();
 
     return 0;
 }
