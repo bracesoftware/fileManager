@@ -26,6 +26,14 @@ myFile.append_text("test");
 std::vector<std::string>fileContents;
 myFile.read_text(fileContents);
 ```
+### `<>.read_line(int line, std::string &dest)`
+- File type required: `flmgr::filetype::txt`
+- Read a specific line.
+```cpp
+std::string line;
+myFile.read_line(4,line);
+std::cout << "line content is : '" << line << "'" << std::endl;
+```
 ### `<>.remove_content()`
 - File type required: `all files`
 - Remove all file contents.

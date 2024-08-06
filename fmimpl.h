@@ -85,6 +85,34 @@ namespace flmgr
                     flmgr::__internal::function::err("Unable to open the file.");
                 }
             }
+            void read_line(int line, std::string &dest)
+            {
+                if(this->filetype != __flmgr_filetype_txt)
+                {
+                    flmgr::__internal::function::wrn("Invalid file type for this operation.");
+                }
+                std::ifstream internal_fileobject(this->filename);
+                if(internal_fileobject.is_open())
+                {
+                    std::string readtext;
+                    int linenumber = 1;
+
+                    while(std::getline(internal_fileobject, readtext))
+                    {
+                        if(linenumber == line)
+                        {
+                            dest = readtext;
+                            break;
+                        }
+                        linenumber++;
+                    }
+                    internal_fileobject.close();
+                }
+                else
+                {
+                    flmgr::__internal::function::err("Unable to open the file.");
+                }
+            }
             void remove_content()
             {
                 std::ofstream internal_fileobject(this->filename);

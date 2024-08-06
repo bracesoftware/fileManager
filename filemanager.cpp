@@ -79,5 +79,15 @@ int flmgr::__internal::function::testing()
         std::cout << i.first << "=" << i.second << std::endl;
     }
 
+    myFile.append_text("TEST");
+    std::string line;
+    myFile.read_line(4,line);
+    std::cout << "line content is : '" << line << "'" << std::endl;
+    myFile.read_line(1,line);
+    std::cout << "line content is : '" << line << "'" << std::endl;
+
+    myFile.read_line(5,line);
+    std::cout << "line content is : '" << line << "'" << std::endl;
+
     return 0;
 }
