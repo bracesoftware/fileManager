@@ -84,18 +84,18 @@ namespace flmgr
         public:
             file(std::string filename)
             {
-                this->filepath=flmgr::filepath::null;
-                this->filename=filename;
+                this->filepath = flmgr::filepath::null;
+                this->filename = filename;
             }
-            file(std::string filepath, std::string filename)
+            file(flmgr::dir &dir, std::string filename)
             {
-                this->filepath=filepath;
-                this->filename=filename;
+                this->filepath = dir.get_name();
+                this->filename = filename;
             }
             //funcs - getters and setters
             void set_name(std::string filename)
             {
-                this->filename=filename;
+                this->filename = filename;
             }
             std::string get_name()
             {

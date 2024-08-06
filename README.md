@@ -46,8 +46,10 @@ flmgr::file<flmgr::filetype::txt> myFile("randomfile.txt");
 - In order to create an object holding the name of a file in a directory, use the overloaded constructor:
 
 ```cpp
-flmgr::file<flmgr::filetype::txt> myFile(myDir.get_name(), "randomfile.txt");
+flmgr::file<flmgr::filetype::txt> myFile(myDir, "randomfile.txt");
 ```
+
+- Here `myDir` is a directory object created using the `flmgr::dir` class.
 
 ## Functions
 

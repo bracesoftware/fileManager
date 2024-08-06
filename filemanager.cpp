@@ -118,13 +118,13 @@ int flmgr::__internal::function::testing()
 
     myDir.create();
 
-    flmgr::file<flmgr::filetype::txt> FileInDir(myDir.get_name(), "file.txt");
+    flmgr::file<flmgr::filetype::txt> FileInDir(myDir, "file.txt");
 
     FileInDir.append_text("tesadasdast");
 
-    FileInDir.remove();
+    //FileInDir.remove();
 
-    myDir.remove();
+    //myDir.remove();
 
     return 0;
 }
