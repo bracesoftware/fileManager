@@ -126,5 +126,25 @@ int flmgr::__internal::function::testing()
 
     //myDir.remove();
 
+    flmgr::dir myPath("lol/test");
+
+    myPath.set_name("lol");
+    myPath.create();
+
+    myPath.set_name("lol/test");
+    myPath.create();
+
+    flmgr::file<flmgr::filetype::txt> FileInPath(myPath, "file.txt");
+
+    FileInPath.append_text("tesadasdast");
+
+    if(FileInPath.exists())
+    {
+        std::cout << "exists" << std::endl;
+    }
+    if(!myPath.exists())
+    {
+        std::cout << "exists2" << std::endl;
+    }
     return 0;
 }

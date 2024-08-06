@@ -17,9 +17,18 @@ std::string filename = myFile.get_name();
 
 ### `<>.remove()`
 - File type required: `all directories and files`
-- Get object name.
+- Remove the directory or file.
 ```cpp
 myFile.remove();
+```
+
+### `<>.exists()`
+- File type required: `all directories and files`
+- Check if a file or directory exists.
+```cpp
+if(myFile.exists()){
+    //foo
+}
 ```
 
 ----------------------------------------------------------------
@@ -116,4 +125,27 @@ for(auto &i : mymap)
 {
     std::cout << i.first << "=" << i.second << std::endl;
 }
+```
+
+## FAQ
+
+### Creating directories in directories?
+
+```cpp
+flmgr::dir myPath("dir1/dir2");
+```
+- Of course, declaring an object like that will obviously not work, so we need to do it like this:
+
+```cpp
+flmgr::dir myPath; // leave the myPath "uninitialised" (it is initialised internally)
+
+myPath.set_name("dir1");
+myPath.create();
+
+myPath.set_name("dir1/dir2");
+myPath.create();
+
+flmgr::file<flmgr::filetype::txt> FileInPath(myPath, "file.txt");
+
+FileInPath.append_text("tesadasdast");
 ```

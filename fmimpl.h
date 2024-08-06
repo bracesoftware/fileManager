@@ -22,11 +22,19 @@ the Initial Developer. All Rights Reserved.
 
 namespace flmgr
 {
+    namespace filepath
+    {
+        const std::string null = "";
+    }
     class dir
     {
         private:
             std::string dirname;
         public:
+            dir()
+            {
+                this->dirname=flmgr::filepath::null;
+            }
             dir(std::string dirname)
             {
                 this->dirname=dirname;
@@ -65,15 +73,16 @@ namespace flmgr
                 }
                 
             }
+            bool exists()
+            {
+                std::filesystem::path dirpath = this->dirname;
+                return std::filesystem::exists(dirpath);
+            }
     };
     namespace filetype
     {
         const int txt = __flmgr_filetype_txt;
         const int ini = __flmgr_filetype_ini;
-    }
-    namespace filepath
-    {
-        const std::string null = "";
     }
     template<const int t_filetype> class file
     {
@@ -284,6 +293,11 @@ namespace flmgr
                 {
                     flmgr::__internal::function::err("File system error - " + (std::string)error->what());
                 }
+            }
+            bool exists()
+            {
+                std::filesystem::path filepath = (std::string)(this->filepath + this->filename);
+                return std::filesystem::exists(filepath);
             }
     };
 }
