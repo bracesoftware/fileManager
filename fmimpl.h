@@ -296,7 +296,7 @@ namespace flmgr
             }
             bool exists()
             {
-                std::filesystem::path filepath = (std::string)(this->filepath + this->filename);
+                std::filesystem::path filepath = static_cast<std::string>(this->filepath + this->filename);
                 return std::filesystem::exists(filepath);
             }
     };

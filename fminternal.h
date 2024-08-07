@@ -68,7 +68,7 @@ namespace flmgr
             {
                 if(argc > 1) for(int i = 1; i < argc; i++)
                 {
-                    if(forarg == (std::string)argv[i])
+                    if(forarg == static_cast<std::string>(argv[i]))
                     {
                         flmgr::__internal::function::info("Argument found.");
                         return true;
@@ -95,6 +95,29 @@ namespace flmgr
                 }
 
                 return tokens;
+            }
+            std::string trim(const std::string &str)
+            {
+                auto start = str.begin();
+                auto end = str.end();
+
+                while(start != end && std::isspace(static_cast<unsigned char>(*start)))
+                {
+                    ++start;
+                }
+
+                if(start == end)
+                {
+                    return static_cast<std::string>("");
+                }
+                auto it = end;
+                do
+                {
+                    --it;
+                }
+                while(it != start && std::isspace(static_cast<unsigned char>(*it)));
+
+                return std::string(start, it + 1);
             }
         }
     }
