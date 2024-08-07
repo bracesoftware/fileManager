@@ -19,21 +19,29 @@ the Initial Developer. All Rights Reserved.
 
 namespace flmgr
 {
+    namespace mem_const
+    {
+        const int intbits = sizeof(int)*8;
+    }
     namespace extra
     {
         template<int t_bitarraysize> class bitarray
         {
             private:
             int bitarraysize = t_bitarraysize;
-            int value;
+            int bitarrayvalue[(t_bitarraysize/(flmgr::mem_const::intbits))+1];
             public:
             bitarray()
             {
-                if(!(0 < this->bitarraysize <= 32))
+                std::cout << "Created a bitarray with a size of " << sizeof(bitarrayvalue)/sizeof(int) << std::endl;
+                if(!(0 < this->bitarraysize))
                 {
                     this->bitarraysize = 32;
                 }
-                this->value = 0;
+                for(int i = 0; i < sizeof(bitarrayvalue)/sizeof(int); i++)
+                {
+                    bitarrayvalue[i] = 0;
+                }
             }
             int get_size()
             {
@@ -41,7 +49,10 @@ namespace flmgr
             }
             void clear()
             {
-                this->value = 0;
+                for(int i; i < sizeof(bitarrayvalue); i++)
+                {
+                    bitarrayvalue[i] = 0;
+                }
             }
             int get_at(int index)
             {
@@ -50,7 +61,7 @@ namespace flmgr
                     throw (index);
                     return 0;
                 }
-                return this->value & (1 << index) ? 1 : 0;
+                return (bitarrayvalue[index/(flmgr::mem_const::intbits)]) & (1 << (index % (flmgr::mem_const::intbits))) ? 1 : 0;
             }
             int set_at(int index, int value)
             {
@@ -59,18 +70,18 @@ namespace flmgr
                     throw (value);
                     return 1;
                 }
-                if(!(0 <= index < 32))
+                if(!(0 <= index < this->bitarraysize))
                 {
                     throw(index);
                     return 1;
                 }
-                if(index >= this->bitarraysize)
-                {
-                    throw (index);
-                    return 0;
-                }
 
-                this->value = value ? (this->value | (1 << index)) : (this->value & ~(1 << index));
+                int arridx = index/(flmgr::mem_const::intbits);
+                int bitidx = index % (flmgr::mem_const::intbits);
+
+                bitarrayvalue[arridx] = value ?
+                    bitarrayvalue[arridx] | (1 << bitidx) :
+                    bitarrayvalue[arridx] & ~(1 << bitidx);
                 return 0;
             }
         };
