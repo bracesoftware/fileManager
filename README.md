@@ -1,6 +1,18 @@
 # File Manager
 📁 • **File Manager** is a C++ library designed to provide a friendlier approach to managing persistent data.
 
+## How to use?
+
+```cpp
+int main(int argc, char *argv[])
+{
+    flmgr::main(argc,argv);
+    return 0;
+}
+```
+
+--------------------------------------------------------------------------------------------------------------------------------
+
 ### `<>.set_name(std::string newname)`
 - File type required: `all directories and files`
 - Rename an object.
@@ -31,7 +43,7 @@ if(myFile.exists()){
 }
 ```
 
-----------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
 
 ## Declaring directories as objects
 ```cpp
@@ -46,7 +58,7 @@ flmgr::dir myDir("myDir");
 myDir.create();
 ```
 
-----------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
 
 ## Declaring files as objects
 ```cpp
