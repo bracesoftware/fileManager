@@ -31,9 +31,9 @@ the Initial Developer. All Rights Reserved.
 #include <filesystem>
 #include <unordered_map>
 
-#include "fminternal.h"
-#include "fmimpl.h"
-#include "fmextra.h"
+#include "fminternal.hpp"
+#include "fmimpl.hpp"
+#include "fmextra.hpp"
 
 namespace flmgr
 {
