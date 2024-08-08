@@ -31,6 +31,7 @@ the Initial Developer. All Rights Reserved.
 #include <filesystem>
 #include <unordered_map>
 
+#define __flmgr_included
 #include "fminternal.hpp"
 #include "fmimpl.hpp"
 #include "fmextra.hpp"

@@ -17,6 +17,10 @@ the Initial Developer. All Rights Reserved.
 
 */
 
+#ifndef __flmgr_included
+    #error [flmgr] PREPROCESSOR SYSTEM @ Error: This file is not standalone.
+#endif
+
 #define __flmgr_filetype_txt 0
 #define __flmgr_filetype_ini 1
 
@@ -34,6 +38,7 @@ namespace flmgr
             dir()
             {
                 this->dirname=flmgr::filepath::null;
+                flmgr::__internal::function::wrn("`dirname` argument is set to `NULL`.");
             }
             dir(std::string dirname)
             {
@@ -91,6 +96,12 @@ namespace flmgr
             int filetype = (int)t_filetype;
             std::string filepath = flmgr::filepath::null;
         public:
+            file()
+            {
+                this->filepath = flmgr::filepath::null;
+                this->filename = flmgr::filepath::null;
+                flmgr::__internal::function::wrn("`filepath` and `filename` arguments are set to `NULL`.");
+            }
             file(std::string filename)
             {
                 this->filepath = flmgr::filepath::null;

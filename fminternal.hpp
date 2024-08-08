@@ -17,6 +17,10 @@ the Initial Developer. All Rights Reserved.
 
 */
 
+#ifndef __flmgr_included
+    #error [flmgr] PREPROCESSOR SYSTEM @ Error: This file is not standalone.
+#endif
+
 namespace flmgr
 {
     namespace __internal
