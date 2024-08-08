@@ -29,7 +29,7 @@ namespace flmgr
     }
     namespace extra
     {
-        template<int t_bitarraysize> class bitarray
+        template<const unsigned int t_bitarraysize> class bitarray
         {
             private:
             int bitarraysize = t_bitarraysize;
