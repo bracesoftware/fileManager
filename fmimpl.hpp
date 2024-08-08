@@ -84,7 +84,7 @@ namespace flmgr
         const int txt = __flmgr_filetype_txt;
         const int ini = __flmgr_filetype_ini;
     }
-    template<const int t_filetype> class file
+    template<const unsigned int t_filetype> class file
     {
         private:
             std::string filename;
@@ -242,6 +242,8 @@ namespace flmgr
                     {
                         linesplit.clear();
                         linesplit = flmgr::__internal::function::split(line,'=');
+                        flmgr::__internal::function::trim(linesplit[0]);
+                        flmgr::__internal::function::trim(linesplit[1]);
                         if(linesplit[0] == key)
                         {
                             return linesplit[1];
@@ -271,6 +273,8 @@ namespace flmgr
                     {
                         linesplit.clear();
                         linesplit = flmgr::__internal::function::split(line,'=');
+                        flmgr::__internal::function::trim(linesplit[0]);
+                        flmgr::__internal::function::trim(linesplit[1]);
                         dest[linesplit[0]] = linesplit[1];
                     }
                     internal_fileobject.close();

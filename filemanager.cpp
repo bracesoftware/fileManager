@@ -104,6 +104,7 @@ int flmgr::__internal::function::testing()
         std::cout << i.first << "=" << i.second << std::endl;
     }
 
+
     myFile.append_text("TEST");
     std::string line;
     myFile.read_line(4,line);
@@ -125,7 +126,7 @@ int flmgr::__internal::function::testing()
     //FileInDir.remove();
 
     //myDir.remove();
-
+    
     flmgr::dir myPath("lol/test");
 
     myPath.set_name("lol");
